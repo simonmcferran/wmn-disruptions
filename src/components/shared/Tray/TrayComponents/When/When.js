@@ -23,27 +23,45 @@ const When = () => {
   //Empty Arr
   const NewDateRange = [];
   //.map over all the dates that have disruptions
-  fetchDisruptionsState.data.map(function(test) {
+  fetchDisruptionsState.data.map(function(newDate) {
     //Push on to dateRange arr
-    NewDateRange.push(test.disruptionTimeWindow);
+    if (newDate === -1) {
+      NewDateRange.push(newDate.disruptionTimeWindow);
+    }
+
+    console.log('What OUT side of the map func is in our new arr? - ', newDate);
   });
+
+  function getDates(startDate, stopDate) {
+    let dateArray = [];
+
+    let currentDate = startDate;
+
+    while (currentDate <= stopDate) {
+      dateArray.push(new Date());
+      currentDate = currentDate.addDays(1);
+    }
+    console.log('Get Dates ', dateArray);
+
+    return dateArray;
+  }
+
   //Whats in our new arr?
-  console.log('What OUT side of the map funx is in our new arr? - ', NewDateRange);
 
   //Trying to get the dates to be edited - all seven days?
-  const highlightWithRanges = [
-    {
-      'react-datepicker__day--highlighted-custom-1': [
-        NewDateRange(new Date(), 7),
-        NewDateRange(new Date(), 6),
-        NewDateRange(new Date(), 5),
-        NewDateRange(new Date(), 4),
-        NewDateRange(new Date(), 3),
-        NewDateRange(new Date(), 2),
-        NewDateRange(new Date(), 1)
-      ]
-    }
-  ];
+  // const highlightWithRanges = [
+  //   {
+  //     'react-datepicker__day--highlighted-custom-1': [
+  //       NewDateRange(new Date(), 7),
+  //       NewDateRange(new Date(), 6),
+  //       NewDateRange(new Date(), 5),
+  //       NewDateRange(new Date(), 4),
+  //       NewDateRange(new Date(), 3),
+  //       NewDateRange(new Date(), 2),
+  //       NewDateRange(new Date(), 1)
+  //     ]
+  //   }
+  // ];
 
   return (
     <div className="wmnds-grid">
@@ -84,7 +102,7 @@ const When = () => {
               onChange={date => whenDispatch({ type: 'UPDATE_CUSTOMDATE', date })}
               inline
               calendarClassName="disruptions-date-picker"
-              highlightDates={highlightWithRanges}
+              // highlightDates={highlightWithRanges}
             />
           </div>
         </div>
